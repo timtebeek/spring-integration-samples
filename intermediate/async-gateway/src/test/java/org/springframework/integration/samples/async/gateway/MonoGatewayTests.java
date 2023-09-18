@@ -16,8 +16,7 @@
 
 package org.springframework.integration.samples.async.gateway;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
@@ -91,7 +90,7 @@ public class MonoGatewayTests {
 					}).subscribe();
 		}
 		assertTrue(latch.await(60, TimeUnit.SECONDS));
-		assertThat(failures.get(), greaterThanOrEqualTo(0));
+        assertThat(failures.get()).isGreaterThanOrEqualTo(0);
 		logger.info("Finished");
 	}
 

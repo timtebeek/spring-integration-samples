@@ -16,9 +16,7 @@
 
 package org.springframework.integration.samples.websocket.standard;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.instanceOf;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -68,7 +66,7 @@ public class ApplicationTests {
 			@Override
 			public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
 				Object payload = message.getPayload();
-				assertThat(payload, instanceOf(String.class));
+                assertThat(payload).isInstanceOf(String.class);
 				Date date = null;
 				try {
 					date = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.DEFAULT).parse((String) payload);
@@ -76,7 +74,7 @@ public class ApplicationTests {
 				catch (ParseException e) {
 					fail("fail to parse date");
 				}
-				assertThat(new Date().compareTo(date), greaterThanOrEqualTo(0));
+                assertThat(new Date().compareTo(date)).isGreaterThanOrEqualTo(0);
 				stopLatch.countDown();
 			}
 
